@@ -4,7 +4,7 @@ import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.pojo.Product;
 
 public class Manager implements ModelInterface {
-    Node header;
+    private Node header;
 
     public Manager() {
         header = null;
@@ -32,40 +32,93 @@ public class Manager implements ModelInterface {
         auxNode.nextNode = newNode;
     }
 
-    public void printList() {
-        Node aux = header;
-
-        while (aux != null) {
-            System.out.println(
-                    "Nodo: " + aux +
-                            " | Producto: " + aux.product.getName() +
-                            " | Next: " + aux.nextNode);
-            aux = aux.nextNode;
-        }
-    }
-
     @Override
-    public Product[] getAllProducts() {
-        return null;
+    public String getAllProducts() {
+        String list = "--------------------";
+        Node auxNode = header;
+        do {
+            list += "\nDescripción: " + auxNode.product.getName() + "\nPrecio: "
+                    + auxNode.product.getPrice() + "\n--------------------";
+            auxNode = auxNode.nextNode;
+        } while (auxNode.nextNode != null);
+        return list;
     }
 
     @Override
     public void productsSortedByName() {
+        header = mergeSort(header);
+    }
+
+    private Node getMiddle(Node head) {
+        Node slow = head;
+        Node fast = head.nextNode;
+
+        while (fast != null && fast.nextNode != null) {
+            slow = slow.nextNode;
+            fast = fast.nextNode.nextNode;
+        }
+        return slow;
+    }
+
+    private Node mergeSort(Node head) {
+        if (head == null || head.nextNode == null) {
+            return head;
+        }
+
+        Node middle = getMiddle(head);
+
+        Node rightHead = middle.nextNode;
+        middle.nextNode = null;
+
+        Node left = mergeSort(head);
+        Node right = mergeSort(rightHead);
+
+        return mergeNodes(left, right);
+    }
+
+    private Node mergeNodes(Node a, Node b) {
+        if (a == null)
+            return b;
+        if (b == null)
+            return a;
+
+        Node result;
+        if (a.product.getName().charAt(0) <= b.product.getName().charAt(0)) {
+            result = a;
+            result.nextNode = mergeNodes(a.nextNode, b);
+        } else {
+            result = b;
+            result.nextNode = mergeNodes(a, b.nextNode);
+        }
+
+        return result;
 
     }
 
     @Override
     public void removeProductByName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeProductByName'");
+
     }
 
     public static void main(String[] args) {
         Manager s = new Manager();
 
-        s.addProduct(new Product("1", 0));
-        s.addProduct(new Product("2", 0));
-        s.addProduct(new Product("3", 0));
-        s.addProduct(new Product("4", 0));
+        s.addProduct(new Product("frijol", 0));
+        s.addProduct(new Product("arroz", 0));
+        s.addProduct(new Product("garbanzo", 0));
+        s.addProduct(new Product("lenteja", 0));
+        s.addProduct(new Product("zanahoria", 0));
+        s.addProduct(new Product("vedura", 0));
+        s.addProduct(new Product("chino", 0));
+        s.addProduct(new Product("tornillo", 0));
+        s.addProduct(new Product("cebolla", 0));
+        s.addProduct(new Product("vino", 0));
+        s.addProduct(new Product("uvas", 0));
+        s.addProduct(new Product("tomate", 0));
+        s.addProduct(new Product("platano", 0));
+
+        s.productsSortedByName();
+
+        System.out.println(s.getAllProducts());
     }
 }

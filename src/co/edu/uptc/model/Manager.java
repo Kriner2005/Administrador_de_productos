@@ -97,7 +97,23 @@ public class Manager implements ModelInterface {
 
     @Override
     public void removeProductByName(String name) {
+        Node auxA = header;
+        Node auxB = header.nextNode;
 
+        if (name.toLowerCase().equals(header.product.getName().toLowerCase())) {
+            header = header.nextNode;
+            return;
+        }
+        boolean control = true;
+        while (auxB.nextNode != null && control) {
+            if (name.toLowerCase().equals(auxB.product.getName().toLowerCase())) {
+                auxA.nextNode = auxB.nextNode;
+                control = false;
+            }else {
+                auxA = auxB;
+                auxB = auxB.nextNode;
+            }
+        }
     }
 
     public static void main(String[] args) {
@@ -119,6 +135,8 @@ public class Manager implements ModelInterface {
 
         s.productsSortedByName();
 
+        System.out.println(s.getAllProducts());
+        s.removeProductByName("chino");
         System.out.println(s.getAllProducts());
     }
 }

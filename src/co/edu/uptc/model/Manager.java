@@ -34,10 +34,13 @@ public class Manager implements ModelInterface {
 
     @Override
     public String getAllProducts() {
-        String list;
-        while (header != null) {
-
-        }
+        String list = "--------------------";
+        Node auxNode = header;
+        do {
+            list += "\nDescripción: " + auxNode.product.getName() + "\nPrecio: "
+                    + auxNode.product.getPrice() + "\n--------------------";
+            auxNode = auxNode.nextNode;
+        } while (auxNode.nextNode != null);
         return list;
     }
 
@@ -114,10 +117,8 @@ public class Manager implements ModelInterface {
         s.addProduct(new Product("tomate", 0));
         s.addProduct(new Product("platano", 0));
 
-        System.out.println(s.header.product.getName());
-
         s.productsSortedByName();
 
-        s.printList();
+        System.out.println(s.getAllProducts());
     }
 }

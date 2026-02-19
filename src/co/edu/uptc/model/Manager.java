@@ -52,12 +52,30 @@ public class Manager implements ModelInterface {
     @Override
     public void productsSortedByName() {
 
+    private void sort() {
+        if (header == null || header.nextNode == null) {
+            return;
+        }
+
+        //Find middle from nodes 
+
+        Node middle = null;
+    }
+
+    private Node getMiddle() {
+        Node slow = header;
+        Node fast = header.nextNode;
+
+        while (fast != null && fast.nextNode != null) {
+            slow = slow.nextNode;
+            fast = slow.nextNode.nextNode;
+        }
+        return slow;
     }
 
     @Override
     public void removeProductByName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeProductByName'");
+
     }
 
     public static void main(String[] args) {

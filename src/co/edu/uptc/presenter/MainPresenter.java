@@ -32,8 +32,12 @@ public class MainPresenter implements PresenterInterface {
 
     @Override
     public void onADeleteProduct(String name) {
-            model.removeProductByName(name);
+        boolean removed = model.removeProductByName(name);
+        if (removed) {
             view.showMessage("Producto eliminado correctamente.");
+        } else {
+            view.showError("No se encontró ningún producto con ese nombre.");
+        }
     }
 
     @Override

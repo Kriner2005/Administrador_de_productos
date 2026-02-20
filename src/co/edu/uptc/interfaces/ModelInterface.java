@@ -6,6 +6,7 @@ public interface ModelInterface {
     void addProduct(Product product);
     String getAllProducts();
     void productsSortedByName();
-    void removeProductByName(String name);
+    boolean removeProductByName(String name);
     boolean isEmpty();
+    
 }

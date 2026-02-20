@@ -101,28 +101,32 @@ public class Manager implements ModelInterface {
     }
 
     @Override
-    public void removeProductByName(String name) {
-        if (header == null)
-            return;
+    public boolean removeProductByName(String name) {
+    if (header == null) return false;
 
-        while (header != null
-                && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
-            header = header.nextNode;
-        }
+    boolean removed = false;
 
-        Node auxA = header;
-        Node auxB = (header != null) ? header.nextNode : null;
+    while (header != null
+            && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
+        header = header.nextNode;
+        removed = true;
+    }
 
-        while (auxB != null) {
-            if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
-                auxA.nextNode = auxB.nextNode;
-                auxB = auxA.nextNode;
-            } else {
-                auxA = auxB;
-                auxB = auxB.nextNode;
-            }
+    Node auxA = header;
+    Node auxB = (header != null) ? header.nextNode : null;
+
+    while (auxB != null) {
+        if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
+            auxA.nextNode = auxB.nextNode;
+            auxB = auxA.nextNode;
+            removed = true;
+        } else {
+            auxA = auxB;
+            auxB = auxB.nextNode;
         }
     }
+    return removed;
+}
 
     @Override
     public boolean isEmpty() {

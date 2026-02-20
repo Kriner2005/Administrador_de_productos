@@ -54,7 +54,9 @@ public class ConsoleView implements ViewInterface {
 
         System.out.println("Ingrese precio: ");
         String price = scanner.nextLine();
-        presenter.onAddProduct(name, price);
+        System.out.println("Ingrese unidad: ");
+        String unit = scanner.nextLine();
+        presenter.onAddProduct(name, price, unit);
     }
 
     private void deleteProduct() {
@@ -74,8 +76,7 @@ public class ConsoleView implements ViewInterface {
 
     @Override
     public void showError(String msg) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showError'");
+        System.err.println("Error: " + msg);
     }
 
 }

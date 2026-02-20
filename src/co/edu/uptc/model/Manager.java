@@ -89,7 +89,8 @@ public class Manager implements ModelInterface {
             return a;
 
         Node result;
-        if (a.product.getName().charAt(0) <= b.product.getName().charAt(0)) {
+        if (a.product.getName().compareToIgnoreCase(
+                b.product.getName()) <= 0) {
             result = a;
             result.nextNode = mergeNodes(a.nextNode, b);
         } else {
@@ -112,7 +113,7 @@ public class Manager implements ModelInterface {
         }
         boolean control = true;
         while (auxB.nextNode != null && control) {
-            if (name.toLowerCase().equals(auxB.product.getName().toLowerCase())) {
+            if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
                 auxA.nextNode = auxB.nextNode;
                 control = false;
             } else {

@@ -38,13 +38,13 @@ public class Manager implements ModelInterface {
         if (header == null) {
             return "";
         }
-        String list = "--------------------";
+        String list = "---------Mostrando Producto-----------";
         Node auxNode = header;
         while (auxNode != null) {
-            list += "\nDescripción: " + auxNode.product.getName()
+            list += "\nNombre: " + auxNode.product.getName()
                     + "\nPrecio: " + auxNode.product.getPrice()
-                    + "\n--------------------";
-
+                    + "\nUnidad: " + auxNode.product.getUnit()
+                    + "\n----------------------------";
             auxNode = auxNode.nextNode;
         }
         return list;

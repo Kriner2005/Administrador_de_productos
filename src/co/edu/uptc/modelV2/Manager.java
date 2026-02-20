@@ -20,10 +20,12 @@ public class Manager implements ModelInterface {
 
     @Override
     public String getAllProducts() {
-        String list = "--------------------";
+        String list = "---------Mostrando Producto-----------";
         for (Product product : products) {
-            list += "\nNombre producto: " + product.getName() + "\nPrecio: " + product.getPrice()
-                    + "\n--------------------";
+            list += "\nNombre producto: " + product.getName() +
+            "\nPrecio: " + product.getPrice()+
+            "\nUnidad: " + product.getUnit() +
+            "\n-----------------------";
         }
         return list;
     }

@@ -12,6 +12,4 @@ public interface ViewInterface {
     void showMessage(String msg);
 
     void showError(String msg);
-
-    void showProducts(List<Product> products);
 }

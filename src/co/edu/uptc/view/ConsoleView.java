@@ -13,8 +13,6 @@ public class ConsoleView implements ViewInterface {
     private Scanner scanner;
     private boolean isRunning;
 
-    
-
     public ConsoleView() {
         this.scanner = new Scanner(System.in);
         this.isRunning = true;
@@ -33,20 +31,13 @@ public class ConsoleView implements ViewInterface {
 
     @Override
     public void showMessage(String msg) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
+        System.out.println(msg);
     }
 
     @Override
     public void showError(String msg) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'showError'");
-    }
-
-    @Override
-    public void showProducts(List<Product> products) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showProducts'");
     }
 
 }

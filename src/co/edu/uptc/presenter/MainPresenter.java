@@ -26,13 +26,12 @@ public class MainPresenter implements PresenterInterface {
 
     @Override
     public void onADeleteProduct(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onADeleteProduct'");
+        model.removeProductByName(name);
     }
 
     @Override
     public void onAListProducts(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'onAListProducts'");
+        model.productsSortedByName();
+        view.showMessage(model.getAllProducts());
     }
 }

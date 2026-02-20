@@ -11,12 +11,12 @@ public class ConsoleView implements ViewInterface {
     private Scanner scanner;
     private boolean isRunning;
 
-    String menu =   " - - - - Bienvenido al sistema de administración de productos - - - - \n"+
-                    "Seleccione una opción:\n"+
-                     "1) Añadir producto\n"+
-                     "2) Eliminar producto\n"+
-                     "3) Mostrar productos\n"+
-                     "0) Salir";
+    String menu = " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
+            "Seleccione una opción:\n" +
+            "1) Añadir producto\n" +
+            "2) Eliminar producto\n" +
+            "3) Mostrar productos\n" +
+            "0) Salir";
 
     public ConsoleView() {
         this.scanner = new Scanner(System.in);
@@ -31,7 +31,7 @@ public class ConsoleView implements ViewInterface {
     @Override
     public void start() {
         do {
-            
+
             System.out.println(menu);
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -68,7 +68,11 @@ public class ConsoleView implements ViewInterface {
     }
 
     private void deleteProduct() {
-        System.out.println("Nombre del producto: ");
+        if (presenter.onIsEmpty()) {
+            showError("No hay productos para eliminar.");
+            return;
+        }
+        System.out.println("Nombre del producto a eliminar: ");
         String name = scanner.nextLine();
         presenter.onADeleteProduct(name);
     }

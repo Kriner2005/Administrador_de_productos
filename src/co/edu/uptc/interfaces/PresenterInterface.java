@@ -10,4 +10,6 @@ public interface PresenterInterface {
     void onADeleteProduct(String name);
 
     void onAListProducts();
+
+    boolean onIsEmpty();
 }

@@ -128,4 +128,5 @@ public class Manager implements ModelInterface {
     public boolean isEmpty() {
         return header == null;
     }
+
 }

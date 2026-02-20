@@ -115,28 +115,4 @@ public class Manager implements ModelInterface {
             }
         }
     }
-
-    public static void main(String[] args) {
-        Manager s = new Manager();
-
-        s.addProduct(new Product("frijol", 0));
-        s.addProduct(new Product("arroz", 0));
-        s.addProduct(new Product("garbanzo", 0));
-        s.addProduct(new Product("lenteja", 0));
-        s.addProduct(new Product("zanahoria", 0));
-        s.addProduct(new Product("vedura", 0));
-        s.addProduct(new Product("chino", 0));
-        s.addProduct(new Product("tornillo", 0));
-        s.addProduct(new Product("cebolla", 0));
-        s.addProduct(new Product("vino", 0));
-        s.addProduct(new Product("uvas", 0));
-        s.addProduct(new Product("tomate", 0));
-        s.addProduct(new Product("platano", 0));
-
-        s.productsSortedByName();
-
-        System.out.println(s.getAllProducts());
-        s.removeProductByName("chino");
-        System.out.println(s.getAllProducts());
-    }
 }

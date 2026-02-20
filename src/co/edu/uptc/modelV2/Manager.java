@@ -35,6 +35,6 @@ public class Manager implements ModelInterface {
 
     @Override
     public void removeProductByName(String name) {
-        products.removeIf(p -> p.getName().equals(name));
+        products.removeIf(p -> p.getName().toLowerCase().contains(name.toLowerCase()));
     }
 }

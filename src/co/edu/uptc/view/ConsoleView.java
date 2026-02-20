@@ -1,19 +1,15 @@
 package co.edu.uptc.view;
 
-import java.util.List;
 import java.util.Scanner;
 
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojo.Product;
 
 public class ConsoleView implements ViewInterface {
 
     private PresenterInterface presenter;
     private Scanner scanner;
     private boolean isRunning;
-
-    
 
     public ConsoleView() {
         this.scanner = new Scanner(System.in);
@@ -27,26 +23,59 @@ public class ConsoleView implements ViewInterface {
 
     @Override
     public void start() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'start'");
+        do {
+            System.out.println("1) Añadir producto \n2) Eliminar producto \n 3) Mostrar productos \n 0) Salir");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (option) {
+                case 1:
+                    addProduct();
+                    break;
+                case 2:
+                    deleteProduct();
+                    break;
+                case 3:
+                    showProducts();
+                    break;
+                case 0:
+                    isRunning = false;
+                    break;
+                default:
+                    break;
+            }
+        } while (isRunning);
+
+    }
+
+    private void addProduct() {
+        System.out.println("Ingrese nombre del producto: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Ingrese precio: ");
+        String price = scanner.nextLine();
+        presenter.onAddProduct(name, price);
+    }
+
+    private void deleteProduct() {
+        System.out.println("Nombre del producto: ");
+        String name = scanner.nextLine();
+        presenter.onADeleteProduct(name);
+    }
+
+    private void showProducts() {
+        presenter.onAListProducts();
     }
 
     @Override
     public void showMessage(String msg) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showMessage'");
+        System.out.println(msg);
     }
 
     @Override
     public void showError(String msg) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'showError'");
-    }
-
-    @Override
-    public void showProducts(List<Product> products) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showProducts'");
     }
 
 }

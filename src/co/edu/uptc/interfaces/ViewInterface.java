@@ -1,8 +1,5 @@
 package co.edu.uptc.interfaces;
 
-import java.util.List;
-import co.edu.uptc.pojo.Product;
-
 public interface ViewInterface {
 
     void setPresenter(PresenterInterface presenter);
@@ -12,6 +9,4 @@ public interface ViewInterface {
     void showMessage(String msg);
 
     void showError(String msg);
-
-    void showProducts(List<Product> products);
 }

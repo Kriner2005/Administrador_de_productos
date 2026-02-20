@@ -9,5 +9,5 @@ public interface PresenterInterface {
 
     void onADeleteProduct(String name);
 
-    void onAListProducts(String name);
+    void onAListProducts();
 }

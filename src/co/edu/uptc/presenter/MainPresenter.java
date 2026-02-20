@@ -41,4 +41,9 @@ public class MainPresenter implements PresenterInterface {
         model.productsSortedByName();
         view.showMessage(model.getAllProducts());
     }
+
+    @Override
+    public boolean onIsEmpty() {
+        return false;
+    }
 }

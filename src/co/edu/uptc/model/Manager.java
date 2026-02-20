@@ -36,7 +36,7 @@ public class Manager implements ModelInterface {
     public String getAllProducts() {
 
         if (header == null) {
-            return "";
+            return "No hay productos registrados en este momento.";
         }
         String list = "---------Mostrando Producto-----------";
         Node auxNode = header;
@@ -102,24 +102,24 @@ public class Manager implements ModelInterface {
 
     @Override
     public void removeProductByName(String name) {
-        Node auxA = header;
-        Node auxB = header.nextNode;
+        if (header == null) return;
 
-        if (name.toLowerCase().equals(header.product.getName().toLowerCase())) {
+        while (header != null
+                && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
             header = header.nextNode;
-            return;
         }
 
-        if (header == null)
-            return; // lista vacía
+        Node auxA = header;
+        Node auxB = (header != null) ? header.nextNode : null;
 
         while (auxB != null) {
-            if (name.equalsIgnoreCase(auxB.product.getName())) {
+            if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
                 auxA.nextNode = auxB.nextNode;
-                return;
+                auxB = auxA.nextNode;
+            } else {
+                auxA = auxB;
+                auxB = auxB.nextNode;
             }
-            auxA = auxB;
-            auxB = auxB.nextNode;
         }
     }
 }

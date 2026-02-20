@@ -84,7 +84,7 @@ public class ConsoleView implements ViewInterface {
 
     @Override
     public void showError(String msg) {
-        System.err.println("Error: " + msg);
+        System.out.println("Error: " + msg);
     }
 
 }

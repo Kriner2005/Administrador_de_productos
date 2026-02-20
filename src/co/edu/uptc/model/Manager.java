@@ -97,9 +97,7 @@ public class Manager implements ModelInterface {
             result = b;
             result.nextNode = mergeNodes(a, b.nextNode);
         }
-
         return result;
-
     }
 
     @Override
@@ -111,15 +109,17 @@ public class Manager implements ModelInterface {
             header = header.nextNode;
             return;
         }
-        boolean control = true;
-        while (auxB.nextNode != null && control) {
-            if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
+
+        if (header == null)
+            return; // lista vacía
+
+        while (auxB != null) {
+            if (name.equalsIgnoreCase(auxB.product.getName())) {
                 auxA.nextNode = auxB.nextNode;
-                control = false;
-            } else {
-                auxA = auxB;
-                auxB = auxB.nextNode;
+                return;
             }
+            auxA = auxB;
+            auxB = auxB.nextNode;
         }
     }
 }

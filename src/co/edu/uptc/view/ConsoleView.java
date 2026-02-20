@@ -11,7 +11,7 @@ public class ConsoleView implements ViewInterface {
     private Scanner scanner;
     private boolean isRunning;
 
-    String menu =   "Bienvenido al sistema de administración de productos\n"+
+    String menu =   " - - - - Bienvenido al sistema de administración de productos - - - - \n"+
                     "Seleccione una opción:\n"+
                      "1) Añadir producto\n"+
                      "2) Eliminar producto\n"+

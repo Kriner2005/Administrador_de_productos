@@ -7,4 +7,5 @@ public interface ModelInterface {
     String getAllProducts();
     void productsSortedByName();
     void removeProductByName(String name);
+    boolean isEmpty();
 }

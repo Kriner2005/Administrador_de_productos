@@ -30,7 +30,7 @@ public class MainPresenter implements PresenterInterface {
     }
 
     @Override
-    public void onAListProducts(String name) {
+    public void onAListProducts() {
         model.productsSortedByName();
         view.showMessage(model.getAllProducts());
     }

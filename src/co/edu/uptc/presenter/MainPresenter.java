@@ -20,18 +20,34 @@ public class MainPresenter implements PresenterInterface {
     }
 
     @Override
-    public void onAddProduct(String name, String price) {
-        model.addProduct(new Product(name, Double.parseDouble(price)));
+    public void onAddProduct(String name, String price, String unit) {
+        try {
+            double value = Double.parseDouble(price);
+            model.addProduct(new Product(name, value, unit));
+            view.showMessage("Producto agregado exitosamente");
+        } catch (NumberFormatException e) {
+            view.showError("Precio inválido: " + price);
+        }
     }
 
     @Override
     public void onADeleteProduct(String name) {
-        model.removeProductByName(name);
+        boolean removed = model.removeProductByName(name);
+        if (removed) {
+            view.showMessage("Producto eliminado correctamente.");
+        } else {
+            view.showError("No se encontró ningún producto con ese nombre.");
+        }
     }
 
     @Override
     public void onAListProducts() {
         model.productsSortedByName();
         view.showMessage(model.getAllProducts());
+    }
+
+    @Override
+    public boolean onIsEmpty() {
+        return false;
     }
 }

@@ -20,10 +20,16 @@ public class Manager implements ModelInterface {
 
     @Override
     public String getAllProducts() {
-        String list = "--------------------";
+        if (products.isEmpty()) {
+            return "No hay productos registrados.";
+        }
+
+        String list = "---------Mostrando Productos-----------";
         for (Product product : products) {
-            list += "\nNombre producto: " + product.getName() + "\nPrecio: " + product.getPrice()
-                    + "\n--------------------";
+            list += "\nNombre: " + product.getName()
+                    + "\nPrecio: " + product.getPrice()
+                    + "\nUnidad: " + product.getUnit()
+                    + "\n----------------------------";
         }
         return list;
     }
@@ -34,7 +40,12 @@ public class Manager implements ModelInterface {
     }
 
     @Override
-    public void removeProductByName(String name) {
-        products.removeIf(p -> p.getName().equals(name));
+    public boolean removeProductByName(String name) {
+        return products.removeIf(p -> p.getName().toLowerCase().contains(name.toLowerCase()));
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return products.isEmpty();
     }
 }

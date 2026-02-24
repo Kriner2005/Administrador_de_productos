@@ -36,15 +36,15 @@ public class MyManager implements ModelInterface {
     public String getAllProducts() {
 
         if (header == null) {
-            return "";
+            return "No hay productos registrados en este momento.\n";
         }
-        String list = "--------------------";
+        String list = "---------Mostrando Producto-----------";
         Node auxNode = header;
         while (auxNode != null) {
-            list += "\nDescripción: " + auxNode.product.getName()
+            list += "\nNombre: " + auxNode.product.getName()
                     + "\nPrecio: " + auxNode.product.getPrice()
-                    + "\n--------------------";
-
+                    + "\nUnidad: " + auxNode.product.getUnit()
+                    + "\n----------------------------";
             auxNode = auxNode.nextNode;
         }
         return list;
@@ -89,36 +89,48 @@ public class MyManager implements ModelInterface {
             return a;
 
         Node result;
-        if (a.product.getName().charAt(0) <= b.product.getName().charAt(0)) {
+        if (a.product.getName().compareToIgnoreCase(
+                b.product.getName()) <= 0) {
             result = a;
             result.nextNode = mergeNodes(a.nextNode, b);
         } else {
             result = b;
             result.nextNode = mergeNodes(a, b.nextNode);
         }
-
         return result;
-
     }
 
     @Override
-    public void removeProductByName(String name) {
-        Node auxA = header;
-        Node auxB = header.nextNode;
+    public boolean removeProductByName(String name) {
+    if (header == null) return false;
 
-        if (name.toLowerCase().equals(header.product.getName().toLowerCase())) {
-            header = header.nextNode;
-            return;
-        }
-        boolean control = true;
-        while (auxB.nextNode != null && control) {
-            if (name.toLowerCase().equals(auxB.product.getName().toLowerCase())) {
-                auxA.nextNode = auxB.nextNode;
-                control = false;
-            } else {
-                auxA = auxB;
-                auxB = auxB.nextNode;
-            }
+    boolean removed = false;
+
+    while (header != null
+            && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
+        header = header.nextNode;
+        removed = true;
+    }
+
+    Node auxA = header;
+    Node auxB = (header != null) ? header.nextNode : null;
+
+    while (auxB != null) {
+        if (auxB.product.getName().toLowerCase().contains(name.toLowerCase())) {
+            auxA.nextNode = auxB.nextNode;
+            auxB = auxA.nextNode;
+            removed = true;
+        } else {
+            auxA = auxB;
+            auxB = auxB.nextNode;
         }
     }
+    return removed;
+}
+
+    @Override
+    public boolean isEmpty() {
+        return header == null;
+    }
+
 }

@@ -3,10 +3,10 @@ package co.edu.uptc.model;
 import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.pojo.Product;
 
-public class Manager implements ModelInterface {
+public class MyManager implements ModelInterface {
     private Node header;
 
-    public Manager() {
+    public MyManager() {
         header = null;
     }
 

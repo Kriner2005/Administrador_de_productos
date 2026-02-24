@@ -6,10 +6,10 @@ import java.util.List;
 import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.pojo.Product;
 
-public class Manager implements ModelInterface {
+public class LinkedManager implements ModelInterface {
     private List<Product> products;
 
-    public Manager() {
+    public LinkedManager() {
         products = new LinkedList<>();
     }
 
@@ -20,16 +20,10 @@ public class Manager implements ModelInterface {
 
     @Override
     public String getAllProducts() {
-        if (products.isEmpty()) {
-            return "No hay productos registrados.";
-        }
-
-        String list = "---------Mostrando Productos-----------";
+        String list = "--------------------";
         for (Product product : products) {
-            list += "\nNombre: " + product.getName()
-                    + "\nPrecio: " + product.getPrice()
-                    + "\nUnidad: " + product.getUnit()
-                    + "\n----------------------------";
+            list += "\nNombre producto: " + product.getName() + "\nPrecio: " + product.getPrice()
+                    + "\n--------------------";
         }
         return list;
     }
@@ -41,7 +35,7 @@ public class Manager implements ModelInterface {
 
     @Override
     public boolean removeProductByName(String name) {
-        return products.removeIf(p -> p.getName().toLowerCase().contains(name.toLowerCase()));
+        return products.removeIf(p -> p.getName().equals(name));
     }
 
     @Override

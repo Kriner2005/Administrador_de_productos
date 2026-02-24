@@ -71,7 +71,6 @@ public class MyManager implements ModelInterface {
         }
 
         Node middle = getMiddle(head);
-
         Node rightHead = middle.nextNode;
         middle.nextNode = null;
 
@@ -82,14 +81,15 @@ public class MyManager implements ModelInterface {
     }
 
     private Node mergeNodes(Node a, Node b) {
-        if (a == null)
+        if (a == null) {
             return b;
-        if (b == null)
+        }
+        if (b == null) {
             return a;
+        }
 
         Node result;
-        if (a.product.getName().compareToIgnoreCase(
-                b.product.getName()) <= 0) {
+        if (a.product.getName().compareToIgnoreCase(b.product.getName()) <= 0) {
             result = a;
             result.nextNode = mergeNodes(a.nextNode, b);
         } else {
@@ -106,8 +106,7 @@ public class MyManager implements ModelInterface {
 
         boolean removed = false;
 
-        while (header != null
-                && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
+        while (header != null && header.product.getName().toLowerCase().contains(name.toLowerCase())) {
             header = header.nextNode;
             removed = true;
         }

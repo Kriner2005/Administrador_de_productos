@@ -1,9 +1,11 @@
 package co.edu.uptc.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
+import co.edu.uptc.pojo.Product;
 
 public class ConsoleView implements ViewInterface {
 
@@ -44,7 +46,8 @@ public class ConsoleView implements ViewInterface {
                     deleteProduct();
                     break;
                 case 3:
-                    showProducts();
+                    presenter.onAListProducts();
+                    ;
                     break;
                 case 0:
                     isRunning = false;
@@ -77,8 +80,15 @@ public class ConsoleView implements ViewInterface {
         presenter.onADeleteProduct(name);
     }
 
-    private void showProducts() {
-        presenter.onAListProducts();
+    public void showProducts(List<Product> products) {
+        StringBuilder paintedProducts = new StringBuilder().append("------Lista de productos-------").append("\n");
+        for (Product product : products) {
+            paintedProducts
+                    .append("Nombre producto: ").append(product.getName()).append("\n")
+                    .append("Precio: ").append(product.getPrice()).append("\n")
+                    .append("Unidad: ").append(product.getUnit()).append("\n\n");
+        }
+        showMessage(paintedProducts.append("------------------------------").toString());
     }
 
     @Override

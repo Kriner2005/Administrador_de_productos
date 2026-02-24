@@ -43,7 +43,7 @@ public class MainPresenter implements PresenterInterface {
     @Override
     public void onAListProducts() {
         model.productsSortedByName();
-        view.showMessage(model.getAllProducts());
+        view.showProducts(model.getAllProducts());;
     }
 
     @Override

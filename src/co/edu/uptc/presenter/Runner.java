@@ -3,13 +3,7 @@ package co.edu.uptc.presenter;
 import co.edu.uptc.interfaces.ModelInterface;
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
-
-// importe de la lista manual para el algoritmo de ordenamiento
-import co.edu.uptc.model.Manager;
-
-// importe de la lista con linked list para el algoritmo de ordenamiento
-// import co.edu.uptc.modelV2.Manager;
-
+import co.edu.uptc.model.MyManager;
 import co.edu.uptc.view.ConsoleView;
 
 public class Runner {
@@ -17,13 +11,9 @@ public class Runner {
     ModelInterface model;
     ViewInterface view;
 
-    private void makeMVP() {
+    private void makwMVP() {
         presenter = new MainPresenter();
-
-        // Conector para tener la lista enlanzada ya sea de forma manual o con linked list
-        model = new Manager();
-
-
+        model = new MyManager();
         view = new ConsoleView();
         
         presenter.setModel(model);
@@ -33,7 +23,7 @@ public class Runner {
     }
 
     public void run() {
-        makeMVP();
+        makwMVP();
         view.start();
     }
 }

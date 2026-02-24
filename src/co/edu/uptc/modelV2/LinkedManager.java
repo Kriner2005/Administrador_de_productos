@@ -1,5 +1,6 @@
 package co.edu.uptc.modelV2;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,13 +20,8 @@ public class LinkedManager implements ModelInterface {
     }
 
     @Override
-    public String getAllProducts() {
-        String list = "--------------------";
-        for (Product product : products) {
-            list += "\nNombre producto: " + product.getName() + "\nPrecio: " + product.getPrice()
-                    + "\n--------------------";
-        }
-        return list;
+    public List<Product> getAllProducts() {
+        return new ArrayList<>(products);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class ConsoleView implements ViewInterface {
     public void start() {
         do {
             System.out.println(menu);
-            int option = readOption();
+            Integer option = readOption();
             handleOption(option);
         } while (isRunning);
     }

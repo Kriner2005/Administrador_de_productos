@@ -33,36 +33,45 @@ public class ConsoleView implements ViewInterface {
     @Override
     public void start() {
         do {
-
             System.out.println(menu);
-            int option = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (option) {
-                case 1:
-                    addProduct();
-                    break;
-                case 2:
-                    deleteProduct();
-                    break;
-                case 3:
-                    presenter.onAListProducts();
-                    ;
-                    break;
-                case 0:
-                    isRunning = false;
-                    break;
-                default:
-                    break;
-            }
+            int option = readOption();
+            handleOption(option);
         } while (isRunning);
+    }
 
+    private Integer readOption() {
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            showError("Opción inválida, ingrese un número.");
+            return null;
+        }
+    }
+    private void handleOption(Integer option) {
+        // Ignora si hubo error de lectura
+        if (option == null)return;
+        switch (option) {
+            case 1:
+                addProduct();
+                break;
+            case 2:
+                deleteProduct();
+                break;
+            case 3:
+                presenter.onAListProducts();
+                break;
+            case 0:
+                isRunning = false;
+                break;
+            default:
+                showError("Opción no válida.");
+                break;
+        }
     }
 
     private void addProduct() {
         System.out.println("Ingrese nombre del producto: ");
         String name = scanner.nextLine();
-
         System.out.println("Ingrese precio: ");
         String price = scanner.nextLine();
         System.out.println("Ingrese unidad: ");

@@ -80,15 +80,19 @@ public class ConsoleView implements ViewInterface {
         presenter.onADeleteProduct(name);
     }
 
+    @Override
     public void showProducts(List<Product> products) {
-        StringBuilder paintedProducts = new StringBuilder().append("------Lista de productos-------").append("\n");
-        for (Product product : products) {
-            paintedProducts
-                    .append("Nombre producto: ").append(product.getName()).append("\n")
-                    .append("Precio: ").append(product.getPrice()).append("\n")
-                    .append("Unidad: ").append(product.getUnit()).append("\n\n");
+        StringBuilder sb = new StringBuilder("------Lista de productos-------\n");
+        for (Product p : products) {
+            sb.append(formatProduct(p));
         }
-        showMessage(paintedProducts.append("------------------------------").toString());
+        showMessage(sb.append("------------------------------").toString());
+    }
+
+    private String formatProduct(Product p) {
+        return "Nombre: " + p.getName() + "\n"
+                + "Precio: " + p.getPrice() + "\n"
+                + "Unidad: " + p.getUnit() + "\n\n";
     }
 
     @Override
@@ -99,6 +103,11 @@ public class ConsoleView implements ViewInterface {
     @Override
     public void showError(String msg) {
         System.out.println("Error: " + msg);
+    }
+
+    @Override
+    public void showAlert(String msg) {
+        System.out.println("Alerta: " + msg);
     }
 
 }

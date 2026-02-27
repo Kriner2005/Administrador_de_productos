@@ -1,6 +1,8 @@
 package co.edu.uptc.view;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import co.edu.uptc.interfaces.PresenterInterface;
@@ -13,7 +15,9 @@ public class ConsoleView implements ViewInterface {
     private Scanner scanner;
     private boolean isRunning;
 
-    String menu = " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
+    private Map<Integer, Runnable> actions;
+
+    private static final String menu = " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
             "Seleccione una opción:\n" +
             "1) Añadir producto\n" +
             "2) Eliminar producto\n" +
@@ -23,6 +27,15 @@ public class ConsoleView implements ViewInterface {
     public ConsoleView() {
         this.scanner = new Scanner(System.in);
         this.isRunning = true;
+        initActions();
+    }
+
+    private void initActions() {
+        actions = new HashMap<>();
+        actions.put(1, this::addProduct);
+        actions.put(2, this::deleteProduct);
+        actions.put(3, () -> presenter.onAListProducts());
+        actions.put(0, () -> isRunning = false);
     }
 
     @Override
@@ -46,21 +59,20 @@ public class ConsoleView implements ViewInterface {
             return null;
         }
     }
+
     private void selectOption(Integer option) {
-        // Ignora si hubo error de lectura
-        if (option == null) return;
-        switch (option) {
-            case 1 -> addProduct();
-            case 2 -> deleteProduct();
-            case 3 -> presenter.onAListProducts();
-            case 0 -> isRunning = false;
-            default -> showError("Opción no válida, ingrese otro numero:");
-        }
+        if (option == null)
+            return;
+        Runnable action = actions.get(option);
+        if (action != null)
+            action.run();
+        else
+            showError("Opción no válida, ingrese otro número.");
     }
 
     private String readInput(String input) {
-       showMessage(input);
-       return scanner.nextLine().trim();
+        showMessage(input);
+        return scanner.nextLine().trim();
     }
 
     private void addProduct() {
@@ -75,7 +87,8 @@ public class ConsoleView implements ViewInterface {
             showError("No hay productos para eliminar.");
             return;
         }
-        presenter.onADeleteProduct(readInput("Nombre del producto a eliminar: "));;
+        presenter.onADeleteProduct(readInput("Nombre del producto a eliminar: "));
+        ;
     }
 
     @Override
@@ -89,8 +102,8 @@ public class ConsoleView implements ViewInterface {
 
     private String formatProduct(Product p) {
         return "Nombre: " + p.getName() + "\n"
-             + "Precio: " + p.getPrice() + "\n"
-             + "Unidad: " + p.getUnit() + "\n\n";
+                + "Precio: " + p.getPrice() + "\n"
+                + "Unidad: " + p.getUnit() + "\n\n";
     }
 
     @Override

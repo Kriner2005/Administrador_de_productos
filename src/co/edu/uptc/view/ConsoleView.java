@@ -33,9 +33,8 @@ public class ConsoleView implements ViewInterface {
     @Override
     public void start() {
         do {
-            System.out.println(menu);
-            Integer option = readOption();
-            handleOption(option);
+            showMessage(menu);
+            selectOption(readOption());
         } while (isRunning);
     }
 
@@ -47,36 +46,28 @@ public class ConsoleView implements ViewInterface {
             return null;
         }
     }
-    private void handleOption(Integer option) {
+    private void selectOption(Integer option) {
         // Ignora si hubo error de lectura
-        if (option == null)return;
+        if (option == null) return;
         switch (option) {
-            case 1:
-                addProduct();
-                break;
-            case 2:
-                deleteProduct();
-                break;
-            case 3:
-                presenter.onAListProducts();
-                break;
-            case 0:
-                isRunning = false;
-                break;
-            default:
-                showError("Opción no válida.");
-                break;
+            case 1 -> addProduct();
+            case 2 -> deleteProduct();
+            case 3 -> presenter.onAListProducts();
+            case 0 -> isRunning = false;
+            default -> showError("Opción no válida, ingrese otro numero:");
         }
     }
 
+    private String readInput(String input) {
+       showMessage(input);
+       return scanner.nextLine().trim();
+    }
+
     private void addProduct() {
-        System.out.println("Ingrese nombre del producto: ");
-        String name = scanner.nextLine();
-        System.out.println("Ingrese precio: ");
-        String price = scanner.nextLine();
-        System.out.println("Ingrese unidad: ");
-        String unit = scanner.nextLine();
-        presenter.onAddProduct(name, price, unit);
+        String name = readInput("Nombre del producto: ");
+        String priceStr = readInput("Precio del producto: ");
+        String unit = readInput("Unidad del producto: ");
+        presenter.onAddProduct(name, priceStr, unit);
     }
 
     private void deleteProduct() {
@@ -84,9 +75,7 @@ public class ConsoleView implements ViewInterface {
             showError("No hay productos para eliminar.");
             return;
         }
-        System.out.println("Nombre del producto a eliminar: ");
-        String name = scanner.nextLine();
-        presenter.onADeleteProduct(name);
+        presenter.onADeleteProduct(readInput("Nombre del producto a eliminar: "));;
     }
 
     @Override
@@ -100,8 +89,8 @@ public class ConsoleView implements ViewInterface {
 
     private String formatProduct(Product p) {
         return "Nombre: " + p.getName() + "\n"
-                + "Precio: " + p.getPrice() + "\n"
-                + "Unidad: " + p.getUnit() + "\n\n";
+             + "Precio: " + p.getPrice() + "\n"
+             + "Unidad: " + p.getUnit() + "\n\n";
     }
 
     @Override
@@ -118,5 +107,4 @@ public class ConsoleView implements ViewInterface {
     public void showAlert(String msg) {
         System.out.println("Alerta: " + msg);
     }
-
 }

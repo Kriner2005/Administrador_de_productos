@@ -1,9 +1,6 @@
 package co.edu.uptc.view;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 import co.edu.uptc.interfaces.PresenterInterface;
 import co.edu.uptc.interfaces.ViewInterface;
@@ -12,112 +9,50 @@ import co.edu.uptc.pojo.Product;
 public class ConsoleView implements ViewInterface {
 
     private PresenterInterface presenter;
-    private Scanner scanner;
-    private boolean isRunning;
-
-    private Map<Integer, Runnable> actions;
-
-    private static final String menu = " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
-            "Seleccione una opción:\n" +
-            "1) Añadir producto\n" +
-            "2) Eliminar producto\n" +
-            "3) Mostrar productos\n" +
-            "0) Salir";
-
-    public ConsoleView() {
-        this.scanner = new Scanner(System.in);
-        this.isRunning = true;
-        initActions();
-    }
-
-    private void initActions() {
-        actions = new HashMap<>();
-        actions.put(1, this::addProduct);
-        actions.put(2, this::deleteProduct);
-        actions.put(3, () -> presenter.onAListProducts());
-        actions.put(0, () -> isRunning = false);
-    }
+    private final ConsoleReader reader = new ConsoleReader();
+    private ConsoleMenu menu;
+    private boolean isRunning = true;
 
     @Override
     public void setPresenter(PresenterInterface presenter) {
         this.presenter = presenter;
+        this.menu = new ConsoleMenu(presenter, reader);
     }
 
     @Override
     public void start() {
         do {
-            showMessage(menu);
-            selectOption(readOption());
+            menu.display();
+            selectOption(reader.readInt());
         } while (isRunning);
     }
 
-    private Integer readOption() {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            showError("Opción inválida, ingrese un número.");
-            return null;
-        }
-    }
-
     private void selectOption(Integer option) {
-        if (option == null)
-            return;
-        Runnable action = actions.get(option);
-        if (action != null)
-            action.run();
-        else
-            showError("Opción no válida, ingrese otro número.");
-    }
-
-    private String readInput(String input) {
-        showMessage(input);
-        return scanner.nextLine().trim();
-    }
-
-    private void addProduct() {
-        String name = readInput("Nombre del producto: ");
-        String priceStr = readInput("Precio del producto: ");
-        String unit = readInput("Unidad del producto: ");
-        presenter.onAddProduct(name, priceStr, unit);
-    }
-
-    private void deleteProduct() {
-        if (presenter.onIsEmpty()) {
-            showError("No hay productos para eliminar.");
+        if (option == null) {
+            showError("Opción inválida, ingrese un número.");
             return;
         }
-        presenter.onADeleteProduct(readInput("Nombre del producto a eliminar: "));
-        ;
+        if (option == 0) {
+            isRunning = false;
+            return;
+        }
+        Runnable action = menu.getAction(option);
+        if (action != null) action.run();
+        else showError("Opción no válida, ingrese otro número.");
     }
 
     @Override
     public void showProducts(List<Product> products) {
         StringBuilder sb = new StringBuilder("------Lista de productos-------\n");
         for (Product p : products) {
-            sb.append(formatProduct(p));
+            sb.append("Nombre: ").append(p.getName()).append("\n")
+              .append("Precio: ").append(p.getPrice()).append("\n")
+              .append("Unidad: ").append(p.getUnit()).append("\n\n");
         }
         showMessage(sb.append("------------------------------").toString());
     }
 
-    private String formatProduct(Product p) {
-        return "Nombre: " + p.getName() + "\n"
-                + "Precio: " + p.getPrice() + "\n"
-                + "Unidad: " + p.getUnit() + "\n\n";
-    }
-
-    @Override
-    public void showMessage(String msg) {
-        System.out.println(msg);
-    }
-
-    @Override
-    public void showError(String msg) {
-        System.out.println("Error: " + msg);
-    }
-
-    @Override
-    public void showAlert(String msg) {
-        System.out.println("Alerta: " + msg);
-    }
+    @Override public void showMessage(String msg) { System.out.println(msg); }
+    @Override public void showError(String msg)   { System.out.println("Error: " + msg); }
+    @Override public void showAlert(String msg)   { System.out.println("Alerta: " + msg); }
 }

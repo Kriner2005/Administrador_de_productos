@@ -8,14 +8,12 @@ import co.edu.uptc.pojo.Product;
 
 public class ConsoleView implements ViewInterface {
 
-    private PresenterInterface presenter;
     private final ConsoleReader reader = new ConsoleReader();
     private ConsoleMenu menu;
     private boolean isRunning = true;
 
     @Override
     public void setPresenter(PresenterInterface presenter) {
-        this.presenter = presenter;
         this.menu = new ConsoleMenu(presenter, reader);
     }
 

@@ -43,15 +43,15 @@ public class MainPresenter implements PresenterInterface {
     @Override
     public void onAListProducts() {
         if (model.isEmpty()) {
-            view.showError("No hay productos registrados");
+            view.showAlert("No hay productos registrados.");
             return;
         }
-
-        view.showProducts(model.productsSortedByName());
+        model.productsSortedByName();
+        view.showProducts(model.getAllProducts());
     }
 
     @Override
     public boolean onIsEmpty() {
-        return false;
+        return model.isEmpty(); 
     }
 }

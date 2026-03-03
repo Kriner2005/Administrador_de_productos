@@ -15,4 +15,6 @@ public interface ViewInterface {
     void showProducts(List<Product> products);
 
     void showError(String msg);
+
+    void showAlert(String msg);
 }

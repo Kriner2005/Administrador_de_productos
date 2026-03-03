@@ -7,7 +7,7 @@ import co.edu.uptc.pojo.Product;
 public interface ModelInterface {
     void addProduct(Product product);
     List<Product> getAllProducts();
-    void productsSortedByName();
+    List<Product> productsSortedByName();
     boolean removeProductByName(String name);
     boolean isEmpty();
     

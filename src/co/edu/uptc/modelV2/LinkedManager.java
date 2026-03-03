@@ -26,8 +26,9 @@ public class LinkedManager implements ModelInterface {
 
     @Override
     public List<Product> productsSortedByName() {
-        products.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
-        return null;
+        List<Product> copyList = new LinkedList<>(products);
+        copyList.sort((p1, p2) -> p1.getName().compareTo(p2.getName()));
+        return copyList;
     }
 
     @Override

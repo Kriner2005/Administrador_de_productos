@@ -50,8 +50,17 @@ public class MyManager implements ModelInterface {
     }
 
     @Override
-    public void productsSortedByName() {
-        header = mergeSort(header);
+    public List<Product> productsSortedByName() {
+        Node copyHeader = copyList(header);
+        copyHeader = mergeSort(copyHeader);
+
+        List<Product> sortedList = new ArrayList<>();
+        Node auxNode = copyHeader;
+        while (auxNode != null) {
+            sortedList.add(auxNode.product);
+            auxNode = auxNode.nextNode;
+        }
+        return sortedList;
     }
 
     private Node getMiddle(Node head) {
@@ -97,6 +106,24 @@ public class MyManager implements ModelInterface {
             result.nextNode = mergeNodes(a, b.nextNode);
         }
         return result;
+    }
+
+    private Node copyList(Node originalNode) {
+        if (header == null) {
+            return null;
+        }
+        // nuevos nodos
+        Node copyHeader = new Node(originalNode.product);
+        // nodo siguiente
+        Node auxOriginal = header.nextNode;
+        // cabecera
+        Node auxCopy = copyHeader;
+        while (auxOriginal != null) {
+            auxCopy.nextNode = new Node(auxOriginal.product);
+            auxCopy = auxCopy.nextNode;
+            auxOriginal = auxOriginal.nextNode;
+        }
+        return copyHeader;
     }
 
     @Override

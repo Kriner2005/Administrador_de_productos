@@ -11,8 +11,7 @@ public class ConsoleMenu {
     private final ConsoleReader reader;
     private final Map<Integer, Runnable> actions;
 
-    private static final String MENU_TEXT =
-            " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
+    private static final String MENU_TEXT = " - - - - Bienvenido al sistema de administración de productos - - - - \n" +
             "Seleccione una opción:\n" +
             "1) Añadir producto\n" +
             "2) Eliminar producto\n" +
@@ -43,10 +42,10 @@ public class ConsoleMenu {
     }
 
     private void addProduct() {
-        String name     = reader.readLine("Nombre del producto: ");
-        String priceStr = reader.readLine("Precio del producto: ");
-        String unit     = reader.readLine("Unidad del producto: ");
-        presenter.onAddProduct(name, priceStr, unit);
+        String name = reader.readLine("Nombre del producto: ");
+        double price = reader.readPositiveDouble("Precio del producto: ");
+        String unit = reader.readLine("Unidad del producto: ");
+        presenter.onAddProduct(name, String.valueOf(price), unit);
     }
 
     private void deleteProduct() {

@@ -20,14 +20,10 @@ public class MainPresenter implements PresenterInterface {
     }
 
     @Override
+
     public void onAddProduct(String name, String price, String unit) {
-        try {
-            double value = Double.parseDouble(price);
-            model.addProduct(new Product(name, value, unit));
-            view.showMessage("Producto agregado exitosamente");
-        } catch (NumberFormatException e) {
-            view.showError("Precio inválido: " + price);
-        }
+        model.addProduct(new Product(name, Double.parseDouble(price), unit));
+        view.showMessage("Producto agregado exitosamente");
     }
 
     @Override
@@ -60,6 +56,6 @@ public class MainPresenter implements PresenterInterface {
 
     @Override
     public boolean onIsEmpty() {
-        return model.isEmpty(); 
+        return model.isEmpty();
     }
 }

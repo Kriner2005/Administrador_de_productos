@@ -35,22 +35,38 @@ public class ConsoleView implements ViewInterface {
             return;
         }
         Runnable action = menu.getAction(option);
-        if (action != null) action.run();
-        else showError("Opción no válida, ingrese otro número.");
+        if (action != null)
+            action.run();
+        else
+            showError("Opción no válida, ingrese otro número.");
     }
 
     @Override
     public void showProducts(List<Product> products) {
-        StringBuilder sb = new StringBuilder("------Lista de productos-------\n");
+        System.out.println("\n╔══════════════════════════════════════════════╗");
+        System.out.println("║            LISTA DE PRODUCTOS                ║");
+        System.out.println("╠═══════════════╦══════════════╦═══════════════╣");
+        System.out.println("║    Nombre     ║    Precio    ║    Unidad     ║");
+        System.out.println("╠═══════════════╬══════════════╬═══════════════╣");
         for (Product p : products) {
-            sb.append("Nombre: ").append(p.getName()).append("\n")
-              .append("Precio: ").append(p.getPrice()).append("\n")
-              .append("Unidad: ").append(p.getUnit()).append("\n\n");
+            System.out.printf("║  %-13s║  $%8.2f   ║  %-11s  ║%n",
+                    p.getName(), p.getPrice(), p.getUnit());
+            System.out.println("╠═══════════════╬══════════════╬═══════════════╣");
         }
-        showMessage(sb.append("------------------------------").toString());
     }
 
-    @Override public void showMessage(String msg) { System.out.println(msg); }
-    @Override public void showError(String msg)   { System.out.println("Error: " + msg); }
-    @Override public void showAlert(String msg)   { System.out.println("Alerta: " + msg); }
+    @Override
+    public void showMessage(String msg) {
+        System.out.println(msg);
+    }
+
+    @Override
+    public void showError(String msg) {
+        System.out.println("Error: " + msg);
+    }
+
+    @Override
+    public void showAlert(String msg) {
+        System.out.println("Alerta: " + msg);
+    }
 }

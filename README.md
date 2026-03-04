@@ -1,18 +1,17 @@
-## Getting Started
+# Administrador de Productos
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Sistema de consola en Java para gestionar productos mediante una lista enlazada, desarrollado con el patrón de arquitectura **MVP (Model - View - Presenter)**.
 
-## Folder Structure
+## Detalles técnicos
 
-The workspace contains two folders by default, where:
+### Lista enlazada manual (`MyManager`)
+Los productos se almacenan en nodos enlazados. Cada `Node` contiene un `Product` y una referencia al siguiente nodo. Las operaciones principales son:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- **Agregar:** recorre la lista hasta el último nodo y enlaza el nuevo al final.
+- **Eliminar:** usa dos punteros (`auxA`, `auxB`) para desconectar el nodo encontrado.
+- **Ordenar:** implementa **MergeSort** sobre la lista enlazada sin modificar la lista original (trabaja sobre una copia).
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Autores
+Desarrollado como proyecto universitario en la **UPTC** (Universidad Pedagógica y Tecnológica de Colombia).
+- Keiner Alberto Carvajal **202320090**
+- Breyner Arley Bernal **202510000**

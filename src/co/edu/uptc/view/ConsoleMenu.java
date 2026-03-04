@@ -16,7 +16,8 @@ public class ConsoleMenu {
             "Seleccione una opción:\n" +
             "1) Añadir producto\n" +
             "2) Eliminar producto\n" +
-            "3) Mostrar productos\n" +
+            "3) Mostrar todos los productos\n" +
+            "4) Mostrar productos ordenados por nombre\n" +
             "0) Salir";
 
     public ConsoleMenu(PresenterInterface presenter, ConsoleReader reader) {
@@ -30,6 +31,7 @@ public class ConsoleMenu {
         actions.put(1, this::addProduct);
         actions.put(2, this::deleteProduct);
         actions.put(3, () -> presenter.onAListProducts());
+        actions.put(4, () -> presenter.onASortedProducts());
     }
 
     public void display() {

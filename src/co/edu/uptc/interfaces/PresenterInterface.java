@@ -11,5 +11,7 @@ public interface PresenterInterface {
 
     void onAListProducts();
 
+    void onASortedProducts();
+
     boolean onIsEmpty();
 }

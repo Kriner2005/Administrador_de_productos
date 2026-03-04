@@ -46,8 +46,16 @@ public class MainPresenter implements PresenterInterface {
             view.showAlert("No hay productos registrados.");
             return;
         }
-        model.productsSortedByName();
         view.showProducts(model.getAllProducts());
+    }
+
+    @Override
+    public void onASortedProducts() {
+        if (model.isEmpty()) {
+            view.showAlert("No hay productos registrados.");
+            return;
+        }
+        view.showProducts(model.productsSortedByName());
     }
 
     @Override
